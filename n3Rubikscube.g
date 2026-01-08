@@ -4,7 +4,14 @@ F := (6,15,35,26)(7,22,34,19)(8,30,33,11)(12,14,29,27)(13,21,28,20);
 R := (3,43,35,14)(5,45,37,21)(8,48,40,29)(15,17,32,30)(16,23,31,22);
 B := (1,24,40,17)(2,18,39,23)(3,9,38,32)(41,43,48,46)(42,45,47,44);
 D := (24,27,30,43)(25,28,31,42)(26,29,32,41)(33,35,40,38)(34,37,39,36);
-
+#full rotations
+X := 
+Y := 
+Z := 
+#middle layer turns
+M := #between R&L -- can implement manually or R*L and rotation
+E := #between U&D
+S := #between F&B
 
 G := Group(U,L,F,R,B,D);
 SetDomain := [1..48];
@@ -72,6 +79,7 @@ if Size(SquareGroup) = 663552 then
 else
     Print("Discrepancy in Thistlethwaite G1 subgroup size!\n");
 fi;
+
 
 
 
