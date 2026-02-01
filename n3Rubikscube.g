@@ -4,17 +4,66 @@ F := (6,15,35,26)(7,22,34,19)(8,30,33,11)(12,14,29,27)(13,21,28,20);
 R := (3,43,35,14)(5,45,37,21)(8,48,40,29)(15,17,32,30)(16,23,31,22);
 B := (1,24,40,17)(2,18,39,23)(3,9,38,32)(41,43,48,46)(42,45,47,44);
 D := (24,27,30,43)(25,28,31,42)(26,29,32,41)(33,35,40,38)(34,37,39,36);
-#full rotations
-X := 
-Y := 
-Z := 
-#middle layer turns
-M := #between R&L -- can implement manually or R*L and rotation
-E := #between U&D
-S := #between F&B
 
 G := Group(U,L,F,R,B,D);
 SetDomain := [1..48];
+
+Faces := [ U, L, F, R, B, D ];
+Orientation := [ 1, 2, 3, 4, 5, 6 ];
+
+#full rotations
+# X rotation: F -> R -> B -> L
+RotX := function()
+    local x;
+    x := ShallowCopy(Orientation);
+
+    Orientation[3] := x[2];
+    Orientation[4] := x[3];
+    Orientation[5] := x[4];
+    Orientation[2] := x[5];
+end;
+
+# Y rotation: F -> U -> B -> D
+RotY := function()
+    local x;
+    x := ShallowCopy(Orientation);
+
+    Orientation[1] := x[3];
+    Orientation[3] := x[6];
+    Orientation[5] := x[1];
+    Orientation[6] := x[5];
+end;
+
+# Z rotation: U -> R -> D -> L
+RotZ := function()
+    local x;
+    x := ShallowCopy(Orientation);
+
+    Orientation[1] := x[2];
+    Orientation[2] := x[6];
+    Orientation[4] := x[1];
+    Orientation[6] := x[4];
+end;
+
+DoTurn := function(turnFace)
+    local i, facePerm;
+
+    # Find index of requested face
+    i := Position(Faces, turnFace);
+    if i = fail then
+        Error("Unknown face move");
+    fi;
+
+    # Map through current orientation
+    facePerm := Faces[ Orientation[i] ];
+
+    # Apply move to cube state
+    Cube := Cube * facePerm;
+end;
+
+GetLayout := function()
+    return Permuted(SetDomain, Cube);
+end;
 
 Corners := [
     [1,9,46], [3,17,48], [6,11,12], [8,14,15],
@@ -79,6 +128,7 @@ if Size(SquareGroup) = 663552 then
 else
     Print("Discrepancy in Thistlethwaite G1 subgroup size!\n");
 fi;
+
 
 
 
