@@ -45,24 +45,41 @@ RotZ := function()
     Orientation[6] := x[4];
 end;
 
-DoTurn := function(turnFace)
+DoTurn := function(turnFace, dir)
     local i, facePerm;
 
-    # Find index of requested face
     i := Position(Faces, turnFace);
     if i = fail then
         Error("Unknown face move");
     fi;
-
-    # Map through current orientation
     facePerm := Faces[ Orientation[i] ];
-
-    # Apply move to cube state
-    Cube := Cube * facePerm;
+    if dir = -1 then
+        facePerm := facePerm^ -1;
+    fi;
+    Cube := facePerm * Cube;
 end;
 
 GetLayout := function()
     return Permuted(SetDomain, Cube);
+end;
+
+#middle layer turns
+DoM := function()
+    DoTurn(R^-1);
+    DoTurn(L);
+    RotY();
+end;
+
+DoE := function()
+    DoTurn(U^-1);
+    DoTurn(D);
+    RotY();
+end;
+
+DoS := function()
+    DoTurn(F^-1);
+    DoTurn(B);
+    RotZ();
 end;
 
 Corners := [
@@ -128,6 +145,7 @@ if Size(SquareGroup) = 663552 then
 else
     Print("Discrepancy in Thistlethwaite G1 subgroup size!\n");
 fi;
+
 
 
 
