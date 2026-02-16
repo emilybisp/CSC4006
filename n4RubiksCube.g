@@ -6,7 +6,7 @@ R := (25,28,64,61)(26,40,63,49)(27,52,62,37)(38,39,51,50)(16,96,80,60)(12,92,76,
 B := (81,84,96,93)(82,88,95,89)(83,92,94,85)(86,87,91,90) (77,64,4,17)(78,52,3,29)(79,40,2,41)(80,28,1,53);
 D := (65,68,80,77)(66,72,79,73)(67,76,78,69)(70,71,75,74) (57,61,84,53)(58,62,83,54)(59,63,82,55)(60,64,81,56);
 #inner layer turns
-u := (89,40,36,32)(90,39,35,31)(91,38,34,30)(92,37,34,29);
+u := (89,40,36,32)(90,39,35,31)(91,38,34,30)(92,37,33,29);
 l := (2,22,66,82)(6,34,70,86)(10,46,74,90)(14,58,78,94);
 f := (9,26,72,55)(10,38,71,43)(11,50,70,31)(12,62,69,19);
 r := (15,95,79,59)(11,91,75,47)(7,87,71,35)(3,83,67,23);
@@ -18,14 +18,71 @@ Ll := L*l;
 Ff := F*f;
 Rr := R*r;
 Dd := D*d;
-Bb := B*b;
-#full rotations
-X := 
-Y := 
-Z := 
+Bb := B*b;s
 
 G := Group(U,L,F,R,B,D,u,l,f,r,b,d);
 SetDomain := [1..96];
+Cube := (); 
+
+Faces := [ U, L, F, R, B, D ];
+Orientation := [ 1, 2, 3, 4, 5, 6 ];
+
+#full rotations
+# X rotation: F -> R -> B -> L
+RotX := function()
+    local x;
+    x := ShallowCopy(Orientation);
+
+    Orientation[3] := x[2];
+    Orientation[4] := x[3];
+    Orientation[5] := x[4];
+    Orientation[2] := x[5];
+end;
+
+# Y rotation: F -> U -> B -> D
+RotY := function()
+    local x;
+    x := ShallowCopy(Orientation);
+
+    Orientation[1] := x[3];
+    Orientation[3] := x[6];
+    Orientation[5] := x[1];
+    Orientation[6] := x[5];
+end;
+
+# Z rotation: U -> R -> D -> L
+RotZ := function()
+    local x;
+    x := ShallowCopy(Orientation);
+
+    Orientation[1] := x[2];
+    Orientation[2] := x[6];
+    Orientation[4] := x[1];
+    Orientation[6] := x[4];
+end;
+
+DoTurn := function(turnFace, dir)
+    local i, facePerm;
+
+    i := Position(Faces, turnFace);
+    if i = fail then
+        Error("Unknown face move");
+    fi;
+    facePerm := Faces[ Orientation[i] ];
+    if dir = -1 then
+        facePerm := facePerm^ -1;
+    fi;
+    Cube := facePerm * Cube;
+end;
+
+GetLayout := function()
+    return Permuted(SetDomain, Cube);
+end;
+
 ActualSize := Size(G);
 Print("The size of the group G is: ", ActualSize, "\n");
 
+RotX();
+Print(GetLayout(), "\n");
+DoTurn(L, 1);
+Print(GetLayout(), "\n");
