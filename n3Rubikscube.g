@@ -1,3 +1,4 @@
+#full face turns
 U := (1,3,8,6)(2,5,7,4)(9,48,15,12)(10,47,16,13)(11,46,17,14);
 L := (1,12,33,41)(4,20,36,44)(6,27,38,46)(9,11,26,24)(10,19,25,18);
 F := (6,15,35,26)(7,22,34,19)(8,30,33,11)(12,14,29,27)(13,21,28,20);
@@ -7,12 +8,12 @@ D := (24,27,30,43)(25,28,31,42)(26,29,32,41)(33,35,40,38)(34,37,39,36);
 
 G := Group(U,L,F,R,B,D);
 SetDomain := [1..48];
+Cube := (); 
 
 Faces := [ U, L, F, R, B, D ];
 Orientation := [ 1, 2, 3, 4, 5, 6 ];
 
 #full rotations
-# X rotation: F -> R -> B -> L
 RotX := function()
     local x;
     x := ShallowCopy(Orientation);
@@ -23,7 +24,6 @@ RotX := function()
     Orientation[2] := x[5];
 end;
 
-# Y rotation: F -> U -> B -> D
 RotY := function()
     local x;
     x := ShallowCopy(Orientation);
@@ -34,7 +34,6 @@ RotY := function()
     Orientation[6] := x[5];
 end;
 
-# Z rotation: U -> R -> D -> L
 RotZ := function()
     local x;
     x := ShallowCopy(Orientation);
@@ -65,31 +64,22 @@ end;
 
 #middle layer turns
 DoM := function()
-    DoTurn(R^-1);
-    DoTurn(L);
+    DoTurn(R, -1);
+    DoTurn(L, 1);
     RotY();
 end;
 
 DoE := function()
-    DoTurn(U^-1);
-    DoTurn(D);
+    DoTurn(U, -1);
+    DoTurn(D, 1);
     RotY();
 end;
 
 DoS := function()
-    DoTurn(F^-1);
-    DoTurn(B);
+    DoTurn(F, -1);
+    DoTurn(B, 1);
     RotZ();
 end;
-
-Corners := [
-    [1,9,46], [3,17,48], [6,11,12], [8,14,15],
-    [26,27,33], [24,38,41], [32,40,43], [29,30,35]
-];
-Edges := [
-    [2,47], [4,10], [5,16], [7,13], [19,20], [21,22],
-    [23,45], [18,44], [25,36], [28,34], [31,37], [39,42]
-];
 
 # Test law of cubology Group Size
 TheoreticalSize := 43252003274489856000;
@@ -145,6 +135,7 @@ if Size(SquareGroup) = 663552 then
 else
     Print("Discrepancy in Thistlethwaite G1 subgroup size!\n");
 fi;
+
 
 
 
