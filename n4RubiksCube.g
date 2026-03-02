@@ -93,21 +93,22 @@ end;
 #middle layer turns
 DoM := function()
     DoTurn(Rr, -1);
-    DoTurn(Ll);
+    DoTurn(Ll, 1);
     RotY();
 end;
 
 DoE := function()
     DoTurn(Uu, -1);
-    DoTurn(Dd);
+    DoTurn(Dd, 1);
     RotY();
 end;
 
 DoS := function()
     DoTurn(Ff, -1);
-    DoTurn(Bb);
+    DoTurn(Bb, 1);
     RotZ();
 end;
 
 ActualSize := Size(G);
 Print("The size of the group G is: ", ActualSize, "\n");
+
