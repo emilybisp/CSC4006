@@ -1,4 +1,4 @@
-Read("C:/Users/emily/OneDrive/Documents/Fifth year/4006/n3Rubikscube.g");
+Read("C:/Users/emily/OneDrive/Documents/Fifth year/4006/n4Rubikscube.g");
 
 AssertTrue := function(condition, message)
     if not condition then
@@ -7,7 +7,7 @@ AssertTrue := function(condition, message)
 end;
 
 #test turn and inverse of turn returns solved cube
-for i in [U, L, F, R, B, D] do
+for i in [U, L, F, R, B, D, u, l, f, r, b, d] do
     DoTurn(i, 1);
     DoTurn(i, -1);
     AssertTrue(Cube = (), Concatenation("Inverse turn test failed: ", String(i)));
@@ -15,22 +15,12 @@ for i in [U, L, F, R, B, D] do
 od;
 
 #test 4 same turns returns solved cube
-for i in [U, L, F, R, B, D] do
+for i in [U, L, F, R, B, D, u, l, f, r, b, d] do
     DoTurn(i, 1);
     DoTurn(i, 1);
     DoTurn(i, 1);
     DoTurn(i, 1);
     AssertTrue(Cube = (), Concatenation("360 turn test failed: ", String(i)));
-    ResetCube();
-od;
-
-#test 4 middle slice turns returns solved cube
-for i in [DoM, DoE, DoS] do
-    i();
-    i();
-    i();
-    i();
-    AssertTrue(Cube = (), Concatenation("360 middle slice test failed: ", String(i)));
     ResetCube();
 od;
 
@@ -116,8 +106,22 @@ for i in [1..Length(list)] do
     RotZ();
     DoTurn(list[i], 1);
     cube2 := GetLayout();
-    AssertTrue(cube1 = cube2, Concatenation("Z full rotation test failed: ", String(i), " vs ", String(j)));
+    AssertTrue(cube1 = cube2, "Z full rotation test failed");
     ResetCube();
 od;
 
-Print("All tests passed!\n");
+OuterList := [U, L, F, R, B, D];
+InnerList := [u, l, f, r, b, d];
+DualList := [Uu, Ll, Ff, Rr, Bb, Dd];
+for i in [1..Length(OuterList)] do
+    DoTurn(DualList[i], 1);
+    cube1 := GetLayout();
+    ResetCube();
+    DoTurn(OuterList[i], 1);
+    DoTurn(InnerList[i], 1);
+    cube2 := GetLayout();
+    AssertTrue(cube1 = cube2, "Dual turn test failed");
+    ResetCube();
+od;
+
+Print("All tests passed!");
