@@ -10,6 +10,10 @@ G := Group(U,L,F,R,B,D);
 SetDomain := [1..48];
 Cube := (); 
 
+ResetCube := function()
+    Cube := ();
+end;
+
 Faces := [ U, L, F, R, B, D ];
 Orientation := [ 1, 2, 3, 4, 5, 6 ];
 
@@ -72,7 +76,7 @@ end;
 DoE := function()
     DoTurn(U, -1);
     DoTurn(D, 1);
-    RotY();
+    RotX();
 end;
 
 DoS := function()
@@ -135,6 +139,7 @@ if Size(SquareGroup) = 663552 then
 else
     Print("Discrepancy in Thistlethwaite G1 subgroup size!\n");
 fi;
+
 
 
 
