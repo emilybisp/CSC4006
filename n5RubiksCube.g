@@ -13,18 +13,24 @@ r := (23,143,119,90)(18,138,114,75)(13,133,109,61)(9,129,105,48)(4,124,100,33);
 d := (72,77,130,67)(73,78,129,68)(74,79,128,69)(75,80,127,70)(76,81,126,71);
 b := (111,95,10,26)(112,80,9,41)(113,65,8,56)(114,53,7,68)(115,38,6,83);
 #2 layer turns
-Uu := U*u;
-Ll := L*l;
-Ff := F*f;
-Rr := R*r;
-Dd := D*d;
-Bb := B*b; 
+Uu := u*U;
+Ll := l*L;
+Ff := f*F;
+Rr := r*R;
+Dd := d*D;
+Bb := b*B;
 
 G := Group(U,L,F,R,B,D,u,l,f,r,b,d);
 SetDomain := [1..144];
 Cube := (); 
 
+ResetCube := function()
+    Cube := ();
+end;
+
 Faces := [ U, L, F, R, B, D ];
+InnerFaces := [ u, l, f, r, b, d ];
+DualFaces := [ Uu, Ll, Ff, Rr, Bb, Dd ];
 Orientation := [ 1, 2, 3, 4, 5, 6 ];
 
 #full rotations
