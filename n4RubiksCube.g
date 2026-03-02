@@ -13,16 +13,20 @@ r := (15,95,79,59)(11,91,75,47)(7,87,71,35)(3,83,67,23);
 b := (73,63,8,18)(74,51,7,30)(75,39,6,42)(76,27,5,54);
 d := (45,49,88,41)(46,50,87,42)(47,51,86,43)(48,52,85,44);
 #half turns
-Uu := U*u;
-Ll := L*l;
-Ff := F*f;
-Rr := R*r;
-Dd := D*d;
-Bb := B*b;
+Uu := u*U;
+Ll := l*L;
+Ff := f*F;
+Rr := r*R;
+Dd := d*D;
+Bb := b*B;
 
 G := Group(U,L,F,R,B,D,u,l,f,r,b,d);
 SetDomain := [1..96];
 Cube := (); 
+
+ResetCube := function()
+    Cube := ();
+end;
 
 Faces := [ U, L, F, R, B, D ];
 InnerFaces := [ u, l, f, r, b, d ];
@@ -77,7 +81,7 @@ DoTurn := function(turnFace, dir)
             facePerm := InnerFaces[Orientation[i]];
         fi;
     else
-        facePerm := Faces[ Orientation[i] ];
+        facePerm := Faces[Orientation[i]];
     fi;
 
     if dir = -1 then
@@ -90,25 +94,5 @@ GetLayout := function()
     return Permuted(SetDomain, Cube);
 end;
 
-#middle layer turns
-DoM := function()
-    DoTurn(Rr, -1);
-    DoTurn(Ll, 1);
-    RotY();
-end;
-
-DoE := function()
-    DoTurn(Uu, -1);
-    DoTurn(Dd, 1);
-    RotY();
-end;
-
-DoS := function()
-    DoTurn(Ff, -1);
-    DoTurn(Bb, 1);
-    RotZ();
-end;
-
 ActualSize := Size(G);
 Print("The size of the group G is: ", ActualSize, "\n");
-
