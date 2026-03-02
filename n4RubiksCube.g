@@ -18,17 +18,18 @@ Ll := L*l;
 Ff := F*f;
 Rr := R*r;
 Dd := D*d;
-Bb := B*b;s
+Bb := B*b;
 
 G := Group(U,L,F,R,B,D,u,l,f,r,b,d);
 SetDomain := [1..96];
 Cube := (); 
 
 Faces := [ U, L, F, R, B, D ];
+InnerFaces := [ u, l, f, r, b, d ];
+DualFaces := [ Uu, Ll, Ff, Rr, Bb, Dd ];
 Orientation := [ 1, 2, 3, 4, 5, 6 ];
 
 #full rotations
-# X rotation: F -> R -> B -> L
 RotX := function()
     local x;
     x := ShallowCopy(Orientation);
@@ -39,7 +40,6 @@ RotX := function()
     Orientation[2] := x[5];
 end;
 
-# Y rotation: F -> U -> B -> D
 RotY := function()
     local x;
     x := ShallowCopy(Orientation);
@@ -50,7 +50,6 @@ RotY := function()
     Orientation[6] := x[5];
 end;
 
-# Z rotation: U -> R -> D -> L
 RotZ := function()
     local x;
     x := ShallowCopy(Orientation);
@@ -66,9 +65,21 @@ DoTurn := function(turnFace, dir)
 
     i := Position(Faces, turnFace);
     if i = fail then
-        Error("Unknown face move");
+        i := Position(InnerFaces, turnFace);
+        if i = fail then
+            i := Position(DualFaces, turnFace);
+            if i = fail then
+                Error("Unknown face move");
+            else
+                facePerm := DualFaces[Orientation[i]];
+            fi;
+        else
+            facePerm := InnerFaces[Orientation[i]];
+        fi;
+    else
+        facePerm := Faces[ Orientation[i] ];
     fi;
-    facePerm := Faces[ Orientation[i] ];
+
     if dir = -1 then
         facePerm := facePerm^ -1;
     fi;
@@ -79,10 +90,24 @@ GetLayout := function()
     return Permuted(SetDomain, Cube);
 end;
 
+#middle layer turns
+DoM := function()
+    DoTurn(Rr, -1);
+    DoTurn(Ll);
+    RotY();
+end;
+
+DoE := function()
+    DoTurn(Uu, -1);
+    DoTurn(Dd);
+    RotY();
+end;
+
+DoS := function()
+    DoTurn(Ff, -1);
+    DoTurn(Bb);
+    RotZ();
+end;
+
 ActualSize := Size(G);
 Print("The size of the group G is: ", ActualSize, "\n");
-
-RotX();
-Print(GetLayout(), "\n");
-DoTurn(L, 1);
-Print(GetLayout(), "\n");
