@@ -7,117 +7,117 @@ AssertTrue := function(condition, message)
 end;
 
 #test turn and inverse of turn returns solved cube
-for i in [U, L, F, R, B, D] do
-    DoTurn(i, 1);
-    DoTurn(i, -1);
-    AssertTrue(Cube = (), Concatenation("Inverse turn test failed: ", String(i)));
-    ResetCube();
+for i in [Cube3.U, Cube3.L, Cube3.F, Cube3.R, Cube3.B, Cube3.D] do
+    Cube3.DoTurn(i, 1);
+    Cube3.DoTurn(i, -1);
+    AssertTrue(Cube3.Cube = (), Concatenation("Inverse turn test failed: ", String(i)));
+    Cube3.ResetCube();
 od;
 
 #test 4 same turns returns solved cube
-for i in [U, L, F, R, B, D] do
-    DoTurn(i, 1);
-    DoTurn(i, 1);
-    DoTurn(i, 1);
-    DoTurn(i, 1);
-    AssertTrue(Cube = (), Concatenation("360 turn test failed: ", String(i)));
-    ResetCube();
+for i in [Cube3.U, Cube3.L, Cube3.F, Cube3.R, Cube3.B, Cube3.D] do
+    Cube3.DoTurn(i, 1);
+    Cube3.DoTurn(i, 1);
+    Cube3.DoTurn(i, 1);
+    Cube3.DoTurn(i, 1);
+    AssertTrue(Cube3.Cube = (), Concatenation("360 turn test failed: ", String(i)));
+    Cube3.ResetCube();
 od;
 
 #test 4 middle slice turns returns solved cube
-for i in [DoM, DoE, DoS] do
+for i in [Cube3.DoM, Cube3.DoE, Cube3.DoS] do
     i();
     i();
     i();
     i();
-    AssertTrue(Cube = (), Concatenation("360 middle slice test failed: ", String(i)));
-    ResetCube();
+    AssertTrue(Cube3.Cube = (), Concatenation("360 middle slice test failed: ", String(i)));
+    Cube3.ResetCube();
 od;
 
 #test single rotation of cube turns correct face
-list := [L, F, R, B];
+list := [Cube3.L, Cube3.F, Cube3.R, Cube3.B];
 for i in [1..Length(list)] do
-    DoTurn(list[i], 1);
-    cube1 := GetLayout();
-    ResetCube();
-    RotX();
+    Cube3.DoTurn(list[i], 1);
+    cube1 := Cube3.GetLayout();
+    Cube3.ResetCube();
+    Cube3.RotX();
     j := (i mod 4) + 1;
-    DoTurn(list[j], 1);
-    cube2 := GetLayout();
+    Cube3.DoTurn(list[j], 1);
+    cube2 := Cube3.GetLayout();
     AssertTrue(cube1 = cube2, Concatenation("X single rotation test failed: ", String(i), " vs ", String(j)));
-    ResetCube();
+    Cube3.ResetCube();
 od;
 
-list := [F, U, B, D];
+list := [Cube3.F, Cube3.U, Cube3.B, Cube3.D];
 for i in [1..Length(list)] do
-    DoTurn(list[i], 1);
-    cube1 := GetLayout();
-    ResetCube();
-    RotY();
+    Cube3.DoTurn(list[i], 1);
+    cube1 := Cube3.GetLayout();
+    Cube3.ResetCube();
+    Cube3.RotY();
     j := (i mod 4) + 1;
-    DoTurn(list[j], 1);
-    cube2 := GetLayout();
+    Cube3.DoTurn(list[j], 1);
+    cube2 := Cube3.GetLayout();
     AssertTrue(cube1 = cube2, Concatenation("Y single rotation test failed: ", String(i), " vs ", String(j)));
-    ResetCube();
+    Cube3.ResetCube();
 od;
 
-list := [L, U, R, D];
+list := [Cube3.L, Cube3.U, Cube3.R, Cube3.D];
 for i in [1..Length(list)] do
-    DoTurn(list[i], 1);
-    cube1 := GetLayout();
-    ResetCube();
-    RotZ();
+    Cube3.DoTurn(list[i], 1);
+    cube1 := Cube3.GetLayout();
+    Cube3.ResetCube();
+    Cube3.RotZ();
     j := (i mod 4) + 1;
-    DoTurn(list[j], 1);
-    cube2 := GetLayout();
+    Cube3.DoTurn(list[j], 1);
+    cube2 := Cube3.GetLayout();
     AssertTrue(cube1 = cube2, Concatenation("Z single rotation test failed: ", String(i), " vs ", String(j)));
-    ResetCube();
+    Cube3.ResetCube();
 od;
 
 #test 4 rotations returns same face layout
-list := [L, F, R, B];
+list := [Cube3.L, Cube3.F, Cube3.R, Cube3.B];
 for i in [1..Length(list)] do
-    DoTurn(list[i], 1);
-    cube1 := GetLayout();
-    ResetCube();
-    RotX();
-    RotX();
-    RotX();
-    RotX();
-    DoTurn(list[i], 1);
-    cube2 := GetLayout();
+    Cube3.DoTurn(list[i], 1);
+    cube1 := Cube3.GetLayout();
+    Cube3.ResetCube();
+    Cube3.RotX();
+    Cube3.RotX();
+    Cube3.RotX();
+    Cube3.RotX();
+    Cube3.DoTurn(list[i], 1);
+    cube2 := Cube3.GetLayout();
     AssertTrue(cube1 = cube2, Concatenation("X full rotation test failed: ", String(i), " vs ", String(j)));
-    ResetCube();
+    Cube3.ResetCube();
 od;
 
-list := [F, U, B, D];
+list := [Cube3.F, Cube3.U, Cube3.B, Cube3.D];
 for i in [1..Length(list)] do
-    DoTurn(list[i], 1);
-    cube1 := GetLayout();
-    ResetCube();
-    RotY();
-    RotY();
-    RotY();
-    RotY();
-    DoTurn(list[i], 1);
-    cube2 := GetLayout();
+    Cube3.DoTurn(list[i], 1);
+    cube1 := Cube3.GetLayout();
+    Cube3.ResetCube();
+    Cube3.RotY();
+    Cube3.RotY();
+    Cube3.RotY();
+    Cube3.RotY();
+    Cube3.DoTurn(list[i], 1);
+    cube2 := Cube3.GetLayout();
     AssertTrue(cube1 = cube2, Concatenation("Y full rotation test failed: ", String(i), " vs ", String(j)));
-    ResetCube();
+    Cube3.ResetCube();
 od;
 
-list := [L, U, R, D];
+list := [Cube3.L, Cube3.U, Cube3.R, Cube3.D];
 for i in [1..Length(list)] do
-    DoTurn(list[i], 1);
-    cube1 := GetLayout();
-    ResetCube();
-    RotZ();
-    RotZ();
-    RotZ();
-    RotZ();
-    DoTurn(list[i], 1);
-    cube2 := GetLayout();
+    Cube3.DoTurn(list[i], 1);
+    cube1 := Cube3.GetLayout();
+    Cube3.ResetCube();
+    Cube3.RotZ();
+    Cube3.RotZ();
+    Cube3.RotZ();
+    Cube3.RotZ();
+    Cube3.DoTurn(list[i], 1);
+    cube2 := Cube3.GetLayout();
     AssertTrue(cube1 = cube2, Concatenation("Z full rotation test failed: ", String(i), " vs ", String(j)));
-    ResetCube();
+    Cube3.ResetCube();
 od;
 
-Print("All tests passed!\n");
+Print("All tests passed!");
