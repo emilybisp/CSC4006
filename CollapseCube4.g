@@ -40,4 +40,20 @@ for i in [1..Length(EdgeInd3)] do
 od;
 
 
-Print(new3Cube);
+LayoutToPerm := function(layout)
+    local perm, i;
+    perm := [];
+    for i in [1..Length(layout)] do
+        perm[layout[i]] := i;
+    od;
+    return PermList(perm);
+end;
+
+
+Print(new3Cube, "\n");
+
+if LayoutToPerm(new3Cube) = fail then
+    Print("Not a valid cube layout");
+else
+    Print(LayoutToPerm(new3Cube));
+fi;
