@@ -12,6 +12,8 @@ Cube3.G := Group(Cube3.U, Cube3.L, Cube3.F, Cube3.R, Cube3.B, Cube3.D);
 Cube3.SetDomain := [1..48];
 Cube3.Cube := (); 
 
+Read("C:/Users/emily/OneDrive/Documents/Fifth year/4006/Thistlethwaiten3.g");
+
 Cube3.ResetCube := function()
     Cube3.Cube := ();
 end;
