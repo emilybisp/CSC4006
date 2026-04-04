@@ -1,5 +1,6 @@
 Read("C:/Users/emily/OneDrive/Documents/Fifth year/4006/n5Rubikscube.g");
 Read("C:/Users/emily/OneDrive/Documents/Fifth year/4006/n3Rubikscube.g");
+Read("C:/Users/emily/OneDrive/Documents/Fifth year/4006/Thistlethwaiten3.g");
 
 new3Cube := List([1..48], i -> 0);
 old5Cube := Cube5.GetLayout();
@@ -25,4 +26,19 @@ for i in [1..Length(EdgeInd3)] do
 od;
 
 
+LayoutToPerm := function(layout)
+    local perm, i;
+    perm := [];
+    for i in [1..Length(layout)] do
+        perm[layout[i]] := i;
+    od;
+    return PermList(perm);
+end;
+
+
 Print(new3Cube);
+if LayoutToPerm(new3Cube) = fail then
+    Print("Not a valid cube layout");
+else
+    Print(LayoutToPerm(new3Cube));
+fi;
