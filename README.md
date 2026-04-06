@@ -1,12 +1,10 @@
 # CSC4006
-Crossing the Rubkion: Group-theoretic methods for Rubik's cubes
+Crossing the Rubkion: Group-theoretic solving methods for standard and non standard Rubik's Cubes
 
-File locations must be changed in the following files to allow execution:
-* testn3.g
-* testn4.g
-* testn5.g
-* testMega.g
-* testPyra.g
-* CollapseCube4.g
-* CollapseCube5.g
+File locations must be changed in Main.g to allow execution.
 
+* Run Main.g with GAP
+* Select cube
+* Enter moves
+
+Due to 5x5 cube group and subgroups sizes max 3 moves recommended to reduce computation time.
