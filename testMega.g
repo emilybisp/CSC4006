@@ -7,22 +7,22 @@ AssertTrue := function(condition, message)
 end;
 
 #test turn and inverse of turn returns solved cube
-for i in [Af, Bf, Cf, Df, Ef, Ff, Gf, Hf, If, Jf, Kf, Lf] do
-    DoTurn(i, 1);
-    DoTurn(i, -1);
-    AssertTrue(Cube = (), Concatenation("Inverse turn test failed: ", String(i)));
-    ResetCube();
+for i in [CubeM.Af, CubeM.Bf, CubeM.Cf, CubeM.Df, CubeM.Ef, CubeM.Ff, CubeM.Gf, CubeM.Hf, CubeM.If, CubeM.Jf, CubeM.Kf, CubeM.Lf] do
+    CubeM.DoTurn(i, 1);
+    CubeM.DoTurn(i, -1);
+    AssertTrue(CubeM.Cube = (), Concatenation("Inverse turn test failed: ", String(i)));
+    CubeM.ResetCube();
 od;
 
 #test 5 same turns returns solved cube
-for i in [Af, Bf, Cf, Df, Ef, Ff, Gf, Hf, If, Jf, Kf, Lf] do
-    DoTurn(i, 1);
-    DoTurn(i, 1);
-    DoTurn(i, 1);
-    DoTurn(i, 1);
-    DoTurn(i, 1);
-    AssertTrue(Cube = (), Concatenation("360 turn test failed: ", String(i)));
-    ResetCube();
+for i in [CubeM.Af, CubeM.Bf, CubeM.Cf, CubeM.Df, CubeM.Ef, CubeM.Ff, CubeM.Gf, CubeM.Hf, CubeM.If, CubeM.Jf, CubeM.Kf, CubeM.Lf] do
+    CubeM.DoTurn(i, 1);
+    CubeM.DoTurn(i, 1);
+    CubeM.DoTurn(i, 1);
+    CubeM.DoTurn(i, 1);
+    CubeM.DoTurn(i, 1);
+    AssertTrue(CubeM.Cube = (), Concatenation("360 turn test failed: ", String(i)));
+    CubeM.ResetCube();
 od;
 
 Print("All tests passed!");
