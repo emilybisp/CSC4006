@@ -1,6 +1,3 @@
-Read("C:/Users/emily/OneDrive/Documents/Fifth year/4006/n4Rubikscube.g");
-Read("C:/Users/emily/OneDrive/Documents/Fifth year/4006/n3Rubikscube.g");
-
 Col4 := rec();
 
 Col4.new3Cube := List([1..48], i -> 0);
