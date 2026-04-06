@@ -1,3 +1,5 @@
+T3 := rec();
+
 T3.AllMoves := [
     [Cube3.U, 1, "U"], [Cube3.U^2, 2, "U2"], [Cube3.U^-1, -1, "U'"],
     [Cube3.D, 1, "D"], [Cube3.D^2, 2, "D2"], [Cube3.D^-1, -1, "D'"],
