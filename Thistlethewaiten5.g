@@ -1,5 +1,7 @@
 Read("C:/Users/emily/OneDrive/Documents/Fifth year/4006/n5Rubikscube.g");
 
+T5 := rec();
+
 T5.AllMoves := [
     [Cube5.U, 1, "U"], [Cube5.U^2, 2, "U2"], [Cube5.U^-1, -1, "U'"],
     [Cube5.D, 1, "D"], [Cube5.D^2, 2, "D2"], [Cube5.D^-1, -1, "D'"],
