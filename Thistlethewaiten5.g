@@ -1,5 +1,3 @@
-Read("C:/Users/emily/OneDrive/Documents/Fifth year/4006/n5Rubikscube.g");
-
 T5 := rec();
 
 T5.AllMoves := [
