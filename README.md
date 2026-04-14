@@ -7,4 +7,4 @@ File locations must be changed in Main.g to allow execution.
 * Select cube
 * Enter moves
 
-Due to 5x5 cube group and subgroups sizes max 3 moves recommended to reduce computation time.
+Due to coset sizes max 3 moves recommended to reduce computation time when running Thistlethwaite's algorithm scripts.
